@@ -2,25 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'package:english_words/english_words.dart';
 
-class FirstApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return new MaterialApp(
-        title: 'Welcome',
-        home: new Scaffold(
-          body: new RandomWords(),
-        )
-    );
-  }
-}
 
-class RandomWords extends StatefulWidget{
+class FirstApp extends StatefulWidget{
   @override
   State<StatefulWidget> createState() => new RandomWordsState();
 }
 
-class RandomWordsState extends State<RandomWords>{
+class RandomWordsState extends State<FirstApp>{
   final _suggesstions = <WordPair>[];
   final _bigfont = new TextStyle(fontSize: 18.0);
   final _save = new Set<WordPair>();

@@ -11,10 +11,11 @@ class MyApp extends StatelessWidget{
   Widget build(BuildContext context) {
     // TODO: implement build
     return new MaterialApp(
-      title: 'Welcome',
-      home: new Scaffold(
-        body: new MainApp(),
-      )
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primaryColor: Colors.green,
+      ),
+      home: new MainApp(),
     );
   }
 }
@@ -31,25 +32,24 @@ class MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
-
-    return new Scaffold(
+    return Scaffold(
       appBar: new AppBar(
         title: new Text('Flutter学习'),
       ),
       body: new Scaffold(
-        body: Center(
-          child: Column(
-            children: <Widget>[
-              new RaisedButton(onPressed:(){
-                _goTo(FirstApp());
-              },child: Text('FirstDemo'),)
-              ,
-              new RaisedButton(onPressed:(){
-                _goTo(FormWidget());
-              },child: Text('基础控件'),)
-            ],
-          ),
-        )
+          body: Center(
+            child: Column(
+              children: <Widget>[
+                new RaisedButton(onPressed:(){
+                  _goTo(FirstApp());
+                },child: Text('FirstDemo'),)
+                ,
+                new RaisedButton(onPressed:(){
+                  _goTo(FormWidget());
+                },child: Text('基础控件'),)
+              ],
+            ),
+          )
       ),
     );
   }
