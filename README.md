@@ -20,8 +20,14 @@ For help getting started with Flutter, view our
 [online documentation](https://flutter.io/docs), which offers tutorials, 
 samples, guidance on mobile development, and a full API reference.
 
+## Screenshots
+<div align="center">
+<img src="/Screenshots/text.png"  height="480" width="270">
+<img src="/Screenshots/image.png"  height="480" width="270">
+</div>
+
 ## Completed
 
-1. 基础控件
-    1. Text   [查看源码](/lib/widget/child/child_text.dart)
-    2. Image  [查看源码](/lib/widget/child/child_image.dart)
++ 基础控件
+    + Text   [查看源码](/lib/widget/child/child_text.dart)
+    + Image  [查看源码](/lib/widget/child/child_image.dart)
