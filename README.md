@@ -22,4 +22,6 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Completed
 
-+ 基础控件
+1. 基础控件
+    1. Text   [查看源码](/lib/widget/child/child_text.dart)
+    2. Image  [查看源码](/lib/widget/child/child_image.dart)
