@@ -36,7 +36,7 @@ class _ChildText extends State<ChildText> {
               padding: const EdgeInsets.all(15.0),
               child: GestureDetector(
                 onTap: (){
-                  Toast.show('点击了文字', context);
+                  Toast.show('点击了文字', context,gravity: Toast.TOP);
                 },
                 child: Text('可以点击,Padding包裹Text',style: TextStyle(backgroundColor: Colors.black12),),
               ),
