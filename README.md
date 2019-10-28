@@ -1,7 +1,5 @@
 # My Flutter project
-Trying to develop a mobile app using Flutter was a bit uncomfortable at first, but the development efficiency did improve.
-(尝试使用Flutter开发移动应用程序，刚开始还是有点不适应，但是开发效率确实提高了。)
-
+Trying to develop a mobile app using Flutter was a bit uncomfortable at first, but the development efficiency did improve.  
 
 # flutter_app
 
@@ -18,7 +16,15 @@ A few resources to get you started if this is your first Flutter project:
 
 For help getting started with Flutter, view our 
 [online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+samples, guidance on mobile development, and a full API reference.  
+  
+## Flutter和原生Android控件对比:  
+| Flutter控件 | Android控件 | score | 
+| - | :-: | -: | 
+| AppBar | ActionBar/ToolBar| 90 | 
+| ListView | ListView/RecyclerView | 100 | 
+| Text | TextView | 90 |
+
 
 ## Screenshots
 <div align="center">

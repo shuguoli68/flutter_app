@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'child/child_text.dart';
 import 'child/child_image.dart';
 import 'child/child_textfiled.dart';
+import 'child/child_layout.dart';
 
 class FormWidget extends StatefulWidget{
   @override
@@ -31,6 +32,10 @@ class _FormWidget extends State<FormWidget>{
               new RaisedButton(onPressed:(){
                 _goTo(ChildTextFiled());
               },child: Text('TextFiled'))
+              ,
+              new RaisedButton(onPressed:(){
+                _goTo(ChildLayout());
+              },child: Text('Layout'))
               ,
             ],
           ),
