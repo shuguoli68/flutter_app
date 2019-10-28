@@ -22,9 +22,26 @@ samples, guidance on mobile development, and a full API reference.
 | Flutter控件 | Android控件 | 
 | - | -: | 
 | AppBar | ActionBar/ToolBar| 
+| Text | TextView | 
+| Image | ImageView | 
+| IconButton | ImageButton | 
+| TextFiled | EditText | 
+| RaisedButton/Button | Button | 
+| Checkbox、CheckboxListTile | Checkbox | 
+| Drawer | DrawerLayout | 
+| Fluttertoast | Toast | 
+| LinearProgressIndicator、CircularProgressIndicator | ProgressBar | 
+| Algin | alginParentXXX属性 | 
+| Column | LinearLayout的android:orientation="vertical" | 
+| Row | android:orientation="horizontal" | 
+| Container | RelativeLayout | 
+| Stack | FrameLayout/RelativeLayout | 
 | ListView | ListView/RecyclerView | 
-| Text | TextView |
-
+| CustomScrollerView | Recyclerview | 
+| SingleChildScrollView | ScrollView | 
+| Center | ViewGroup | 
+| resizeToAvoidBottomPadding | android:windowSoftInputMode=”adjustResize属性 | 
+| BottomNavigationBar | BottomNavigation(design库里面的) | 
 
 ## Screenshots
 <div align="center">
