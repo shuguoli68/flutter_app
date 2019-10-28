@@ -19,11 +19,11 @@ For help getting started with Flutter, view our
 samples, guidance on mobile development, and a full API reference.  
   
 ## Flutter和原生Android控件对比:  
-| Flutter控件 | Android控件 | score | 
-| - | :-: | -: | 
-| AppBar | ActionBar/ToolBar| 90 | 
-| ListView | ListView/RecyclerView | 100 | 
-| Text | TextView | 90 |
+| Flutter控件 | Android控件 | 
+| - | -: | 
+| AppBar | ActionBar/ToolBar| 
+| ListView | ListView/RecyclerView | 
+| Text | TextView |
 
 
 ## Screenshots
