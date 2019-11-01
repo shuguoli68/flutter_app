@@ -3,6 +3,8 @@ import 'child/child_text.dart';
 import 'child/child_image.dart';
 import 'child/child_textfiled.dart';
 import 'child/child_layout.dart';
+import 'child/child_listview_builder.dart';
+import 'child/child_listview_separated.dart';
 
 class FormWidget extends StatefulWidget{
   @override
@@ -37,6 +39,24 @@ class _FormWidget extends State<FormWidget>{
                 _goTo(ChildLayout());
               },child: Text('Layout'))
               ,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  new RaisedButton(onPressed:(){
+                    _goTo(ChildListViewBuilder());
+                  },child: Text('ListView'))
+                  ,
+                  new RaisedButton(onPressed:(){
+                    _goTo(ChildListViewSeparated());
+                  },child: Text('separated'))
+                  ,
+                  new RaisedButton(onPressed:(){
+                    _goTo(ChildListViewBuilder());
+                  },child: Text('builder'))
+                  ,
+                ],
+              ),
+
             ],
           ),
         ),
