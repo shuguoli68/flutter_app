@@ -7,6 +7,7 @@ import 'child/child_layout.dart';
 import 'child/child_listview.dart';
 import 'child/child_listview_builder.dart';
 import 'child/child_listview_separated.dart';
+import 'child/child_apply.dart';
 
 class FormWidget extends StatefulWidget{
   @override
@@ -62,6 +63,10 @@ class _FormWidget extends State<FormWidget>{
                   ,
                 ],
               ),
+              new RaisedButton(onPressed:(){
+                _goTo(ChildApply());
+              },child: Text('综合使用'))
+              ,
 
             ],
           ),
