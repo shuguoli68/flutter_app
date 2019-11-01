@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 import 'package:flutter_app/widget/first_demo.dart';
 import 'package:flutter_app/widget/form_widget.dart';
+import 'widget/my_dialog.dart';
 
 void main() => runApp(new MyApp());
 
@@ -36,21 +37,34 @@ class MainAppState extends State<MainApp> {
       appBar: new AppBar(
         title: new Text('Flutter学习'),
       ),
-      body: new Scaffold(
-          body: Center(
-            child: Column(
-              children: <Widget>[
-                new RaisedButton(onPressed:(){
-                  _goTo(FirstApp());
-                },child: Text('FirstDemo'),)
-                ,
-                new RaisedButton(onPressed:(){
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Container(
+              width: double.maxFinite,
+              child:RaisedButton(onPressed:(){
+                _goTo(FirstApp());
+              },child: Text('FirstDemo'),),
+            ),
+
+            Container(
+                width: double.maxFinite,
+                child: RaisedButton(onPressed:(){
                   _goTo(FormWidget());
                 },child: Text('基础控件'),)
-              ],
             ),
-          )
-      ),
+
+            Container(
+                width: double.maxFinite,
+                child: RaisedButton(onPressed:(){
+                  _goTo(MyDialog());
+                },child: Text('对话框'),)
+            ),
+
+
+          ],
+        ),
+      )
     );
   }
 

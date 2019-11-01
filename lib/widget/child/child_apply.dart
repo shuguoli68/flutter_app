@@ -23,6 +23,7 @@ class _ChildApply extends State<ChildApply>{
         alignment: Alignment.centerRight,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          textDirection: TextDirection.ltr,
           children: <Widget>[
             ClipRRect(
               child:Image.asset('images/user_ba.png',scale: 8.5,fit: BoxFit.cover,width: 50,height: 50,),
@@ -30,6 +31,7 @@ class _ChildApply extends State<ChildApply>{
             ),
 
             Column(
+              textDirection: TextDirection.rtl,
               children: <Widget>[
                 Row(
                   children: <Widget>[
@@ -51,30 +53,6 @@ class _ChildApply extends State<ChildApply>{
         ),
       )
     );
-//    return Container(
-//      padding: EdgeInsets.all(12.0),
-//      alignment: Alignment.center,
-//      child: Row(
-//        children: <Widget>[
-//          ClipRRect(
-//            child:Image.asset('images/user_ba.png',scale: 8.5,fit: BoxFit.cover,width: 50,height: 50,),
-//            borderRadius: BorderRadius.all(Radius.circular(8.0)),
-//          ),
-//
-//          Column(
-//            children: <Widget>[
-//              Row(
-//                children: <Widget>[
-//                  Padding(padding: EdgeInsets.all(5.0),child: Text('姓名$index'),),
-//                  Icon(Icons.people),
-//                ],
-//              ),
-//              Padding(padding: EdgeInsets.all(5.0),child:Text('旅游、电影、绘画、钢琴、游泳、$index'),)
-//            ],
-//          )
-//        ],
-//      )
-//    );
   }
 
   @override
