@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'child/child_text.dart';
 import 'child/child_image.dart';
 import 'child/child_textfiled.dart';
+import 'child/child_button.dart';
 import 'child/child_layout.dart';
+import 'child/child_listview.dart';
 import 'child/child_listview_builder.dart';
 import 'child/child_listview_separated.dart';
 
@@ -36,6 +38,10 @@ class _FormWidget extends State<FormWidget>{
               },child: Text('TextFiled'))
               ,
               new RaisedButton(onPressed:(){
+                _goTo(ChildButton());
+              },child: Text('Button'))
+              ,
+              new RaisedButton(onPressed:(){
                 _goTo(ChildLayout());
               },child: Text('Layout'))
               ,
@@ -43,7 +49,7 @@ class _FormWidget extends State<FormWidget>{
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   new RaisedButton(onPressed:(){
-                    _goTo(ChildListViewBuilder());
+                    _goTo(ChildListView());
                   },child: Text('ListView'))
                   ,
                   new RaisedButton(onPressed:(){

@@ -13,7 +13,7 @@ class _ChildListViewSeparated extends State<ChildListViewSeparated>{
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: Text('ListView.Separated'),
+        title: Text('ListView.separated'),
       ),
       body: ListView.separated(
           itemBuilder: (context, index){
