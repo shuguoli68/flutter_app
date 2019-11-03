@@ -56,3 +56,6 @@ samples, guidance on mobile development, and a full API reference.
     + Text   [查看源码](/lib/widget/child/child_text.dart)
     + Image  [查看源码](/lib/widget/child/child_image.dart)
     + TextFiled  [查看源码](/lib/widget/child/child_textfiled.dart)
+    + Button  [查看源码](/lib/widget/child/child_button.dart)
+    + ListView  [查看源码](/lib/widget/child/child_listView.dart)
+    + Dialog  [查看源码](/lib/widget/child/my_dialog.dart)
