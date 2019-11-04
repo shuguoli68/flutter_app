@@ -4,6 +4,7 @@ import 'package:english_words/english_words.dart';
 import 'package:flutter_app/widget/first_demo.dart';
 import 'package:flutter_app/widget/form_widget.dart';
 import 'widget/my_dialog.dart';
+import 'widget/my_anim.dart';
 
 void main() => runApp(new MyApp());
 
@@ -61,6 +62,12 @@ class MainAppState extends State<MainApp> {
                 },child: Text('对话框'),)
             ),
 
+            Container(
+                width: double.maxFinite,
+                child: RaisedButton(onPressed:(){
+                  _goTo(MyAnim());
+                },child: Text('动画'),)
+            ),
 
           ],
         ),
