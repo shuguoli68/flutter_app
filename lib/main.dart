@@ -69,6 +69,13 @@ class MainAppState extends State<MainApp> {
                 },child: Text('动画'),)
             ),
 
+            Container(
+                width: double.maxFinite,
+                child: RaisedButton(onPressed:(){
+                  _goTo(MyAnim());
+                },child: Text('存储'),)
+            ),
+
           ],
         ),
       )
