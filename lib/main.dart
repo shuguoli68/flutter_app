@@ -6,6 +6,7 @@ import 'package:flutter_app/widget/form_widget.dart';
 import 'widget/my_dialog.dart';
 import 'widget/my_anim.dart';
 import 'widget/my_save.dart';
+import 'widget/my_dio.dart';
 
 void main() => runApp(new MyApp());
 
@@ -75,6 +76,13 @@ class MainAppState extends State<MainApp> {
                 child: RaisedButton(onPressed:(){
                   _goTo(MySave(storage: TextStorage(),));
                 },child: Text('存储'),)
+            ),
+
+            Container(
+                width: double.maxFinite,
+                child: RaisedButton(onPressed:(){
+                  _goTo(MyDio(dioUtil: DioUtil(),));
+                },child: Text('网络请求Dio'),)
             ),
 
           ],
