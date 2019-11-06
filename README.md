@@ -43,6 +43,7 @@ samples, guidance on mobile development, and a full API reference.
 | resizeToAvoidBottomPadding | android:windowSoftInputMode=”adjustResize属性 | 
 | BottomNavigationBar | BottomNavigation(design库里面的) | 
 
+
 ## Screenshots
 <div align="center">
 <img src="/Screenshots/text.png"  height="480" width="270">
