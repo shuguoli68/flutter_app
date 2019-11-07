@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_app/util/HttpUtils.dart';
 
 class DioUtil{
 
@@ -13,6 +14,19 @@ class DioUtil{
     }
   }
 
+  duanzi() async{
+    var result = await HttpUtils.request(
+      'https://api.apiopen.top/getJoke',
+      method: HttpUtils.GET,
+      data: {
+        'page':1,
+        'count':1,
+        'type':'video'
+      }
+    );
+    print(result);
+    return result;
+  }
 }
 
 class MyDio extends StatefulWidget{
@@ -46,6 +60,13 @@ class _MyDio extends State<MyDio>{
                   baiduTxt = widget.dioUtil.baiduOnce().toString();
                 });
               },child: Text('百度一下'),)
+          ),
+
+          Container(
+              width: double.maxFinite,
+              child: RaisedButton(onPressed:(){
+                widget.dioUtil.duanzi();
+              },child: Text('新实时段子'),)
           ),
 
         ],
