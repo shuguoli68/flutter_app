@@ -30,6 +30,7 @@ dependencies:
   path_provider: ^0.4.1
   dio: ^2.2.2
   provide: ^1.0.2
+  json_serializable: ^2.0.0
 
 dev_dependencies:
   flutter_test:

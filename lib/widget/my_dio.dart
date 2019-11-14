@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_app/util/HttpUtils.dart';
+import 'package:flutter_app/items/wy_news.dart';
 
 class DioUtil{
 
@@ -40,6 +41,13 @@ class MyDio extends StatefulWidget{
 }
 
 class _MyDio extends State<MyDio>{
+
+  _goTo(Widget key){
+    Navigator.of(context).push(MaterialPageRoute(builder: (_){
+      return key;
+    }));
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -68,6 +76,14 @@ class _MyDio extends State<MyDio>{
                 widget.dioUtil.duanzi();
               },child: Text('新实时段子'),)
           ),
+
+          Container(
+              width: double.maxFinite,
+              child: RaisedButton(onPressed:(){
+                _goTo(WYNews());
+              },child: Text('网易新闻'),)
+          ),
+
 
         ],
       ),
