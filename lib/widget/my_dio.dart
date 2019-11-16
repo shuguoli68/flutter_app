@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_app/bean/weather_week.dart';
 import 'package:flutter_app/util/HttpUtils.dart';
 import 'package:flutter_app/items/wy_news.dart';
+import 'package:flutter_app/items/weather_entity.dart';
 
 class DioUtil{
 
@@ -84,7 +86,12 @@ class _MyDio extends State<MyDio>{
               },child: Text('网易新闻'),)
           ),
 
-
+          Container(
+              width: double.maxFinite,
+              child: RaisedButton(onPressed:(){
+                _goTo(WeatherWeek());
+              },child: Text('天气预报'),)
+          ),
         ],
       ),
     );
