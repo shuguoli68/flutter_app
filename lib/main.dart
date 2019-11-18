@@ -4,13 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provide/provide.dart';
 import 'theme/theme_provide.dart';
 import 'theme/theme_colors.dart';
-import 'package:english_words/english_words.dart';
-import 'package:flutter_app/widget/first_demo.dart';
-import 'package:flutter_app/widget/form_widget.dart';
-import 'widget/my_dialog.dart';
-import 'widget/my_anim.dart';
-import 'widget/my_save.dart';
-import 'widget/my_dio.dart';
 import 'widget/home_drawer.dart';
 
 void main() async{//主页
@@ -71,56 +64,8 @@ class MainAppState extends State<MainApp> {
     return Scaffold(
       drawer: Drawer(child: HomeDrawer(context).homeDrawer(),),
       appBar: new AppBar(
-        title: new Text('Flutter学习'),
+        title: new Text('FBook'),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Container(
-              width: double.maxFinite,
-              child:RaisedButton(onPressed:(){
-                _goTo(FirstApp());
-              },child: Text('FirstDemo'),),
-            ),
-
-            Container(
-                width: double.maxFinite,
-                child: RaisedButton(onPressed:(){
-                  _goTo(FormWidget());
-                },child: Text('基础控件'),)
-            ),
-
-            Container(
-                width: double.maxFinite,
-                child: RaisedButton(onPressed:(){
-                  _goTo(MyDialog());
-                },child: Text('对话框'),)
-            ),
-
-            Container(
-                width: double.maxFinite,
-                child: RaisedButton(onPressed:(){
-                  _goTo(MyAnim());
-                },child: Text('动画'),)
-            ),
-
-            Container(
-                width: double.maxFinite,
-                child: RaisedButton(onPressed:(){
-                  _goTo(MySave(storage: TextStorage(),));
-                },child: Text('存储'),)
-            ),
-
-            Container(
-                width: double.maxFinite,
-                child: RaisedButton(onPressed:(){
-                  _goTo(MyDio(dioUtil: DioUtil(),));
-                },child: Text('网络请求Dio'),)
-            ),
-
-          ],
-        ),
-      )
     );
   }
 

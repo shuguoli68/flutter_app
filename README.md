@@ -1,15 +1,5 @@
-# My Flutter project
-Trying to develop a mobile app using Flutter was a bit uncomfortable at first, but the development efficiency did improve.  
-
-# flutter_app
-
-A new Flutter application.
-
-## Getting Started
-
-This project is a starting point for a Flutter application. 
-
-A few resources to get you started if this is your first Flutter project:
+# FBook
+分支,小说APP
 
 - [Flutter中文网: https://flutterchina.club/](https://flutterchina.club/)
 - [FlutterAwesome: https://flutterawesome.com/](https://flutterawesome.com/)
