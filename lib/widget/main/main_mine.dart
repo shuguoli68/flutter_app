@@ -10,7 +10,7 @@ class MainMine extends StatefulWidget{
 class _MainMine extends State<MainMine>{
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    print('MainMine');
     return Scaffold(
       body: Text('MainMine'),
     );

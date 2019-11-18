@@ -10,7 +10,7 @@ class BookRank extends StatefulWidget{
 class _BookRank extends State<BookRank>{
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    print('BookRank');
     return Scaffold(
       body: Text('BookRank'),
     );

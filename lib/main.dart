@@ -48,6 +48,7 @@ class _MainAppState extends State<MainApp> {
             _tabIndex = index;
           });
         },
+        key: ObjectKey('$_tabIndex'),
 
         iconSize: 24.0,
         type: BottomNavigationBarType.fixed,
