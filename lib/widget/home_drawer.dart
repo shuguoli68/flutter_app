@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:toast/toast.dart';
 import 'package:provide/provide.dart';
-import 'package:flutter_app/theme/theme_provide.dart';
-import 'package:flutter_app/theme/theme_colors.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_app/global/theme_provide.dart';
+import 'package:flutter_app/global/theme_colors.dart';
+import 'package:flutter_app/global/my_public.dart';
 
 class HomeDrawer {
 
