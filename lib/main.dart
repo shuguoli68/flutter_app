@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/widget/my_fbook.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provide/provide.dart';
@@ -118,6 +119,12 @@ class MainAppState extends State<MainApp> {
                 },child: Text('网络请求Dio'),)
             ),
 
+            Container(
+                width: double.maxFinite,
+                child: RaisedButton(onPressed:(){
+                  _goTo(FBook());
+                },child: Text('FBook'),)
+            ),
           ],
         ),
       )
