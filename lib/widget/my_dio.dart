@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_app/bean/weather_week.dart';
+import 'package:flutter_app/items/weather_week.dart';
 import 'package:flutter_app/util/HttpUtils.dart';
 import 'package:flutter_app/items/wy_news.dart';
-import 'package:flutter_app/items/weather_entity.dart';
+import 'package:flutter_app/bean/weather_entity.dart';
 
 class DioUtil{
 

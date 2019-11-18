@@ -4,7 +4,6 @@ import 'package:flutter_app/util/HttpUtils.dart';
 import 'package:flutter_app/entity_factory.dart';
 import 'package:flutter_app/bean/wy_news_entity.dart';
 import 'package:toast/toast.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter_app/widget/web_widget.dart';
 
 //https://www.apiopen.top/api.html
