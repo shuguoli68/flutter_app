@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/items/weather_entity.dart';
+import 'package:flutter_app/bean/weather_entity.dart';
 
 import 'package:flutter_app/util/HttpUtils.dart';
 import 'package:flutter_app/entity_factory.dart';

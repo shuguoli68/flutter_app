@@ -1,5 +1,5 @@
 import 'package:flutter_app/bean/wy_news_entity.dart';
-import 'package:flutter_app/items/weather_entity.dart';
+import 'package:flutter_app/bean/weather_entity.dart';
 
 class EntityFactory {
   static T generateOBJ<T>(json) {
