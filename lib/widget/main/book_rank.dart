@@ -3,6 +3,7 @@ import 'package:flutter_app/bean/zhuishu/book_rank_entity.dart';
 import 'package:flutter_app/global/my_public.dart';
 import 'package:flutter_app/global/common.dart';
 import 'package:flutter_app/util/HttpUtils.dart';
+import 'package:flutter_app/widget/fbook/book_rank_one.dart';
 import 'package:flutter_tableview/flutter_tableview.dart';
 
 import '../../entity_factory.dart';
@@ -97,18 +98,26 @@ class _BookRank extends State<BookRank>{
         this.section = section;
         this.row = row;
         print('click cell item. -> section:$section row:$row');
+        goTo(context, BookRankOne(id:_itemOne(section)[row].sId,title:_itemOne(section)[row].title,));
       },
-      child: Flex(
-        direction: Axis.horizontal,
-        children: <Widget>[
-          Padding(padding: EdgeInsets.all(5.0),
-            child: ClipOval(
-              child: Image.network(_itemOne(section)[row].cover,height: 30,width: 30,fit: BoxFit.fitHeight,),
-            ),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border(
+              bottom: Divider.createBorderSide(context,color: Colors.black,width: 1)
           ),
-          Expanded(child: Text(_itemOne(section)[row].title,maxLines: 1,overflow: TextOverflow.ellipsis),)
-        ],
-      ),
+        ),
+        child: Flex(
+          direction: Axis.horizontal,
+          children: <Widget>[
+            Padding(padding: EdgeInsets.all(5.0),
+              child: ClipOval(
+                child: Image.network(_itemOne(section)[row].cover,height: 30,width: 30,fit: BoxFit.fitHeight,),
+              ),
+            ),
+            Expanded(child: Text(_itemOne(section)[row].title,maxLines: 1,overflow: TextOverflow.ellipsis),)
+          ],
+        ),
+      )
     );
   }
 
