@@ -18,19 +18,6 @@ class FBook extends StatefulWidget{
 class _FBook extends State<FBook> {
 
   int _tabIndex = 0;
-  var _pageList;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    _pageList = [
-      BookShelf(),
-      BookSort(),
-      BookRank(),
-      MainMine(),
-    ];
-
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +25,15 @@ class _FBook extends State<FBook> {
       appBar: new AppBar(
         title: new Text('FBook'),
       ),
-      body: _pageList[_tabIndex],
+      body: IndexedStack(
+        index: _tabIndex,
+        children: <Widget>[
+          BookShelf(),
+          BookSort(),
+          BookRank(),
+          MainMine(),
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _tabIndex,
         onTap: (index){
