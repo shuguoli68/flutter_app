@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'global/my_public.dart';
 import 'global/common.dart';
@@ -21,6 +22,13 @@ void main() async{//主页
   themeIndex =  null == themeIndex ? 0 : themeIndex;
 
   runApp(ProviderNode(child: Splash(themeIndex), providers: providers));
+
+  //设置状态栏透明
+//  SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
+//    statusBarIconBrightness: Brightness.dark,
+//    statusBarColor: Colors.transparent,
+//  );
+//  SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
 }
 
 class Splash extends StatelessWidget{
@@ -63,22 +71,18 @@ class _SplashBody extends State<SplashBody>{
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(milliseconds: 500),(){goToRm(context, MainApp());});
+    Future.delayed(Duration(milliseconds: 1500),(){goToRm(context, MainApp());});
   }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Stack(
-        children: <Widget>[
-
-          Image.asset('images/fbook.png',fit: BoxFit.fill,width: double.maxFinite,height: double.maxFinite,),
-
-          Text('FBook'),
-
-        ],
+      body: Image.asset(
+        "images/launch_image.png",
+        width: double.infinity,
+        height: double.infinity,
+        fit: BoxFit.fill,
       ),
     );
   }
