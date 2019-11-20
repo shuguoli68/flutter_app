@@ -111,7 +111,7 @@ class _BookRank extends State<BookRank>{
           children: <Widget>[
             Padding(padding: EdgeInsets.all(5.0),
               child: ClipOval(
-                child: Image.network(_itemOne(section)[row].cover,height: 30,width: 30,fit: BoxFit.fitHeight,),
+                child: Image.network(HttpUtils.BASE_URL_IMG+_itemOne(section)[row].cover,height: 30,width: 30,fit: BoxFit.fitHeight,),
               ),
             ),
             Expanded(child: Text(_itemOne(section)[row].title,maxLines: 1,overflow: TextOverflow.ellipsis),)

@@ -1,3 +1,6 @@
+https://github.com/shichunlei/-Api/blob/master/%E8%BF%BD%E4%B9%A6%E7%A5%9E%E5%99%A8.md
+
+
 http://api.zhuishushenqi.com/cats/lv2/statistics
 
 http://api.zhuishushenqi.com/book/by-categories?gender=male&type=hot&major=玄幻&minor=东方玄幻&start=0&limit=10
@@ -10,3 +13,42 @@ http://api.zhuishushenqi.com/mix-atoc/542a5838a5ae10f815039a7f
 http://api.zhuishushenqi.com/ranking/gender
 
 http://api.zhuishushenqi.com/ranking/54d43437d47d13ff21cad58b
+
+
+
+
+
+加载更多：
+
+Future<bool> _loadMore() async {
+    print("onLoadMore");
+    await Future.delayed(Duration(seconds: 0, milliseconds: 100));
+
+    return true;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Container(
+        child: LoadMore(
+          isFinish: count >= 60,
+          onLoadMore: _loadMore,
+          child: ListView.builder(
+            itemBuilder: (BuildContext context, int index) {
+              return Container(
+                child: Text(list[index].toString()),
+                height: 40.0,
+                alignment: Alignment.center,
+              );
+              },
+            itemCount: count,
+          ),
+        ),
+      ),
+    );
+  }

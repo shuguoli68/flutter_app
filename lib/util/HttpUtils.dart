@@ -12,6 +12,10 @@ import 'package:dio/dio.dart';
  */
 class HttpUtils {
 
+  static const String BASE_URL_IMG = "http://statics.zhuishushenqi.com";
+  static const String BASE_URL_SOURCE = "http://novel.juhe.im";
+  static const String BASE_URL_CHAPTER = "http://chapter2.zhuishushenqi.com";
+
   /// global dio object
   static Dio dio;
 
