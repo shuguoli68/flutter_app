@@ -1,7 +1,3 @@
-/**
- * 带子分类的分类
- * http://api.zhuishushenqi.com/cats/lv2/statistics
- */
 class BookSortEntity {
 	List<BookSortItem> female;
 	List<BookSortItem> press;
@@ -47,29 +43,20 @@ class BookSortEntity {
 }
 
 class BookSortItem {
-	int bookCount;
-	int monthlyCount;
-	String name;
-	String icon;
-	List<String> bookCover;
+	List<String> mins;
+	String major;
 
-	BookSortItem({this.bookCount, this.monthlyCount, this.name, this.icon, this.bookCover});
+	BookSortItem({this.mins, this.major});
 
 	BookSortItem.fromJson(Map<String, dynamic> json) {
-		bookCount = json['bookCount'];
-		monthlyCount = json['monthlyCount'];
-		name = json['name'];
-		icon = json['icon'];
-		bookCover = json['bookCover']?.cast<String>();
+		mins = json['mins']?.cast<String>();
+		major = json['major'];
 	}
 
 	Map<String, dynamic> toJson() {
 		final Map<String, dynamic> data = new Map<String, dynamic>();
-		data['bookCount'] = this.bookCount;
-		data['monthlyCount'] = this.monthlyCount;
-		data['name'] = this.name;
-		data['icon'] = this.icon;
-		data['bookCover'] = this.bookCover;
+		data['mins'] = this.mins;
+		data['major'] = this.major;
 		return data;
 	}
 }
