@@ -36,7 +36,6 @@ class _BookRankOne extends State<BookRankOne> {
   }
 
   _BuildItem(BuildContext context, int index){
-    if(list.isEmpty) return Center(child: Text('数据为空'));
     return GestureDetector(
       onTap: (){
         goTo(context, BookDetail(sId: list[index].sId,));
@@ -51,7 +50,7 @@ class _BookRankOne extends State<BookRankOne> {
           Expanded(
             child: Column(
               children: <Widget>[
-                Text('《'+list[index].title+'》-'+list[index].author,maxLines: 1,overflow: TextOverflow.ellipsis,style: TextStyle(color: Colors.black),),
+                Text('《'+list[index].title+'》-'+list[index].author,maxLines: 1,overflow: TextOverflow.ellipsis,style: TextStyle(fontWeight: FontWeight.bold),),
                 Text(/*'        '+*/list[index].shortIntro,maxLines: 3,overflow: TextOverflow.ellipsis),
               ],
             ),
@@ -67,14 +66,11 @@ class _BookRankOne extends State<BookRankOne> {
     _getData();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: ListView.separated(
+  _body(){
+    if(list.isEmpty){
+      return Center(child: Text('数据为空'));
+    }else{
+      return ListView.separated(
           itemBuilder: (context, index){
             return _BuildItem(context, index);
           },
@@ -82,7 +78,18 @@ class _BookRankOne extends State<BookRankOne> {
             return Container(height: 1,color: Colors.green,);
           },
           itemCount: list.length
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
       ),
+      body: _body(),
     );
   }
 }
