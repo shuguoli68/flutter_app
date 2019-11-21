@@ -5,6 +5,7 @@ import 'package:flutter_app/global/common.dart';
 import 'package:flutter_app/util/HttpUtils.dart';
 
 import '../../entity_factory.dart';
+import 'book_catalog.dart';
 
 class BookDetail extends StatefulWidget{
   String sId;//书籍id
@@ -99,13 +100,12 @@ class _BookDetail extends State<BookDetail> {
                 Container(width: double.infinity, height: 1.0, color: Colors.black12,),
                 Padding(padding: EdgeInsets.all(5.0)),
 
-                Text(book.longIntro,),
-                Padding(padding: EdgeInsets.all(5.0)),
+                Padding(padding: EdgeInsets.all(5.0),child: Text(book.longIntro,),),
 
                 Container(width: double.infinity, height: 1.0, color: Colors.black12,),
                 ListTile(
                   onTap: (){
-                    Toast.show('目录', context,gravity: Toast.TOP);
+                    goTo(context, BookCatalog(sId: book.sId,title: book.title,));
                   },
                   title: Text('更新至        '+book.lastChapter,),
                   trailing: Icon(Icons.keyboard_arrow_right),
@@ -116,11 +116,14 @@ class _BookDetail extends State<BookDetail> {
             ),
           )),
           //底部按钮
-          Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,children: <Widget>[
-            _bottomBtn(0),
-            _bottomBtn(1),
-            _bottomBtn(2),
-          ],)
+          Padding(
+            padding: EdgeInsets.only(bottom: 10.0,top: 5.0),
+            child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,children: <Widget>[
+              _bottomBtn(0),
+              _bottomBtn(1),
+              _bottomBtn(2),
+            ],),
+          ),
 
         ],
       ),
