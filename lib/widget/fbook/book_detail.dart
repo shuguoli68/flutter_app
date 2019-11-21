@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/bean/zhuishu/BookRecommend.dart';
 import 'package:flutter_app/bean/zhuishu/book_detail_entity.dart';
 import 'package:flutter_app/global/my_public.dart';
 import 'package:flutter_app/global/common.dart';
@@ -16,7 +17,9 @@ class BookDetail extends StatefulWidget{
 
 class _BookDetail extends State<BookDetail> {
 
-  BookDetailEntity book;
+  BookDetailEntity book;//本书的详情
+  BookRecommend data;//推荐书籍
+  var list = List<Book>();//推荐书籍列表
 
   _getData () async {
     var result = await HttpUtils.request(
@@ -28,6 +31,18 @@ class _BookDetail extends State<BookDetail> {
     );
     setState(() {
       book = EntityFactory.generateOBJ(result);
+    });
+
+    var response = await HttpUtils.request(
+        '/book/'+widget.sId+'/recommend',
+        method: HttpUtils.GET,
+        data: {
+
+        }
+    );
+    setState(() {
+      data = EntityFactory.generateOBJ(response);
+      list = data.books;
     });
   }
 
@@ -56,6 +71,48 @@ class _BookDetail extends State<BookDetail> {
         }
       },
     );
+  }
+
+  //类似书籍 推荐
+  _BuildItem(BuildContext context, int index){
+    return GestureDetector(
+      onTap: (){
+        goTo(context, BookDetail(sId: list[index].sId,));
+      },
+      child: Flex(
+        direction: Axis.horizontal,
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.all(5.0),
+            child: Image.network(HttpUtils.BASE_URL_IMG+list[index].cover,width: 50,height: 90,),
+          ),
+          Expanded(
+            child: Column(
+              children: <Widget>[
+                Text('《'+list[index].title+'》-'+list[index].author,maxLines: 1,overflow: TextOverflow.ellipsis,style: TextStyle(fontWeight: FontWeight.bold),),
+                Text(/*'        '+*/list[index].shortIntro,maxLines: 3,overflow: TextOverflow.ellipsis),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  _body(){
+    if(list.isEmpty){
+      return Center(child: Text('数据为空'));
+    }else{
+      return ListView.separated(
+          itemBuilder: (context, index){
+            return _BuildItem(context, index);
+          },
+          separatorBuilder: (context,index){
+            return Container(height: 1,color: Colors.green,);
+          },
+          itemCount: list.length
+      );
+    }
   }
 
   @override
@@ -112,6 +169,8 @@ class _BookDetail extends State<BookDetail> {
                 ),
                 Container(width: double.infinity, height: 15.0, color: Colors.black12,),
 
+                Padding(padding: EdgeInsets.all(5.0),child: Text('类似书籍推荐：'),),
+                _body(),
               ],
             ),
           )),

@@ -7,6 +7,8 @@ import 'package:flutter_app/bean/zhuishu/book_rank_one_entity.dart';
 import 'package:flutter_app/bean/zhuishu/book_sort_entity.dart';
 import 'package:flutter_app/items/weather_entity.dart';
 
+import 'bean/zhuishu/BookRecommend.dart';
+
 class EntityFactory {
   static T generateOBJ<T>(json) {
     if (1 == 0) {
@@ -15,7 +17,9 @@ class EntityFactory {
       return WyNewsEntity.fromJson(json) as T;
     } else if (T.toString() == "BookCatalogEntity") {
       return BookCatalogEntity.fromJson(json) as T;
-    } else if (T.toString() == "BookCategoryEntity") {
+    } else if (T.toString() == "BookRecommend") {
+      return BookRecommend.fromJson(json) as T;
+    }else if (T.toString() == "BookCategoryEntity") {
       return BookCategoryEntity.fromJson(json) as T;
     } else if (T.toString() == "BookDetailEntity") {
       return BookDetailEntity.fromJson(json) as T;
