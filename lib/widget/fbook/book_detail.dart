@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/bean/zhuishu/BookRecommend.dart';
+import 'package:flutter_app/bean/zhuishu/book_recommend_entity.dart';
 import 'package:flutter_app/bean/zhuishu/book_detail_entity.dart';
 import 'package:flutter_app/global/my_public.dart';
 import 'package:flutter_app/global/common.dart';
@@ -18,7 +18,7 @@ class BookDetail extends StatefulWidget{
 class _BookDetail extends State<BookDetail> {
 
   BookDetailEntity book;//本书的详情
-  BookRecommend data;//推荐书籍
+  BookRecommendEntity data;//推荐书籍
   var list = List<Book>();//推荐书籍列表
 
   _getData () async {

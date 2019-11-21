@@ -1,11 +1,11 @@
-class BookRecommend {
+class BookRecommendEntity {
     List<Book> books;
     bool ok;
 
-    BookRecommend({this.books, this.ok});
+    BookRecommendEntity({this.books, this.ok});
 
-    factory BookRecommend.fromJson(Map<String, dynamic> json) {
-        return BookRecommend(
+    factory BookRecommendEntity.fromJson(Map<String, dynamic> json) {
+        return BookRecommendEntity(
             books: json['books'] != null ? (json['books'] as List).map((i) => Book.fromJson(i)).toList() : null, 
             ok: json['ok'], 
         );
