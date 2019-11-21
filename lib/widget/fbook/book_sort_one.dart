@@ -11,8 +11,8 @@ import 'package:path_provider/path_provider.dart';
 import '../../entity_factory.dart';
 
 class BookSortOne extends StatefulWidget{
-  String gender,major;//大分类、主分类
-  BookSortOne({Key key, @required this.gender,@required this.major}):super(key:key);
+  String gender,major,minor;//大分类、主分类、子分类
+  BookSortOne({Key key, @required this.gender,@required this.major,@required this.minor}):super(key:key);
   @override
   State<StatefulWidget> createState() => _BookSortOne();
 }
@@ -20,7 +20,6 @@ class BookSortOne extends StatefulWidget{
 class _BookSortOne extends State<BookSortOne>{
 
   String type = 'hot';//类型："hot"、"over"、"new"
-  String minor = '';//子分类：
   int start = 0;
   int limit = 20;
 
@@ -48,7 +47,7 @@ class _BookSortOne extends State<BookSortOne>{
     'gender':widget.gender,
     'type':type,
     'major':widget.major,
-    'minor':minor,
+    'minor':widget.minor,
     'start':start,
     'limit':limit
     };

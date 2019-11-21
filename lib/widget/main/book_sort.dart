@@ -5,6 +5,7 @@ import 'package:flutter_app/global/my_public.dart';
 import 'package:flutter_app/global/common.dart';
 import 'package:flutter_app/util/HttpUtils.dart';
 import 'package:flutter_app/widget/fbook/book_sort_one.dart';
+import 'package:flutter_tableview/flutter_tableview.dart';
 
 class BookSort extends StatefulWidget{
   @override
@@ -12,6 +13,11 @@ class BookSort extends StatefulWidget{
 }
 
 class _BookSort extends State<BookSort>{
+
+  // 有多少个组
+  int sectionCount = 4;
+  int section = 0;
+  int row = 0;
 
   int _index = 0;
   var list = List<BookSortItem>();
@@ -27,6 +33,7 @@ class _BookSort extends State<BookSort>{
     data = EntityFactory.generateOBJ(result);
     setState(() {
       list.addAll(data.picture);
+      sectionCount = list.length;
     });
   }
 
@@ -55,6 +62,7 @@ class _BookSort extends State<BookSort>{
           list = data.picture;
           break;
       }
+      sectionCount = list.length;
     });
   }
 
@@ -101,78 +109,75 @@ class _BookSort extends State<BookSort>{
     );
   }
 
-  _subItemCount(BookSortItem item){
-    if(item.mins==null){
-      return 0;
-    }else{
-      return item.mins.length;
+  // 每组有多少行（每组有多少个cell item）
+  int _itemCount(int section) {
+    if (_index == 1) {
+      return data.male[section].mins.length;
+    } else if (_index == 2) {
+      return data.female[section].mins.length;
+    } else if (_index == 3) {
+      return data.press[section].mins.length;
+    }else {
+      return data.picture[section].mins.length;
     }
   }
 
-  _getItem(BookSortItem item){
-    var name = item.major;
-    return GestureDetector(
-      onTap: (){
-        myToast(context, name);
-        goTo(context, BookSortOne(gender:_getGender(_index),major:name));
+  // 创建每组的header
+  Widget _sectionHeaderBuilder(BuildContext context, int section) {
+    return InkWell(
+      onTap: () {
+        print('click section header. -> gender: ${_getGender(_index)},major: ${list[section].major}');
+        goTo(context, BookSortOne(gender: _getGender(_index),major: list[section].major,minor: '',));
       },
-      child: Center(
-        child: Row(children: <Widget>[
-          Flex(direction: Axis.horizontal,children: <Widget>[
-            Container(
-              padding: EdgeInsets.all(5.0),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black12, width: 2,),
-                borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-              ),
-              child: Padding(
-                padding: EdgeInsets.all(1.0),
-                child: Text(name),
-              ),
-            ),
-            Icon(Icons.subdirectory_arrow_right),
-//            Expanded(
-//              child: ListView.builder(
-//                  scrollDirection: Axis.vertical,
-//                  padding: EdgeInsets.all(5.0),
-//                  itemExtent: 30,
-//                  itemCount: _subItemCount(item),
-//                  itemBuilder: (context,index){
-//                    return Column(children: <Widget>[
-//                      ListTile(
-//                        onTap: (){
-//                          myToast(context,'点击了${item.mins[index]}');
-//                        },
-//                        title: Text('itemText${item.mins[index]}',),
-//                        trailing: Icon(Icons.keyboard_arrow_right),
-//                      ),
-//                      Container(width: double.infinity, height: 1.0, color: Colors.black12,),
-//                    ],);
-//                  }),
-//            ),
-          ],)
-        ],),
-      ),
+      child: Padding(
+        padding: EdgeInsets.all(5.0),
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.amber, width: 1),
+            borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+          ),
+          child: ListTile(
+            title: Text(list[section].major),
+            trailing: Icon(Icons.keyboard_arrow_right),
+            leading: Icon(Icons.list),
+          ),
+        ),),
     );
   }
 
-  List<Widget> _getWidgetList(){
-    if(list.isEmpty){
-      return [Center(child: Text('数据为空'),)];
-    }
-    var children = List<Widget>();
-    list.forEach((item)=>{
-      children.add(_getItem(item))
-    });
-    return children;
+  // 根据 section 和 row, 创建对应的item
+  Widget _cellBuilder(BuildContext context, int section, int row) {
+    if(list[section].mins==null || list[section].mins.length<1)
+      return Center(child: Text('数据为空'),);
+    return InkWell(
+        onTap: () {
+          this.section = section;
+          this.row = row;
+          print('click cell item. -> gender: ${_getGender(_index)},major: ${list[section].major},minor: ${list[section].mins[row]}');
+          goTo(context, BookSortOne(gender: _getGender(_index),major: list[section].major,minor: list[section].mins[row],));
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border(
+                bottom: Divider.createBorderSide(context,color: Colors.black,width: 1)
+            ),
+          ),
+          child: ListTile(
+            title: Text(list[section].mins[row]),
+            trailing: Icon(Icons.keyboard_arrow_right),
+          ),
+        )
+    );
   }
 
-  _itemCount(){
-    if(list==null ||list.length<1){
-      return 0;
-    }else{
-      return list.length;
-    }
+  // section header widget 的高度
+  double _sectionHeaderHeight(BuildContext context, int section) {
+    return 60.0;
+  }
+
+  // cell item widget 的高度
+  double _cellHeight(BuildContext context, int section, int row) {
+    return 60.0;
   }
 
   @override
@@ -204,23 +209,14 @@ class _BookSort extends State<BookSort>{
 
           Expanded(
               flex:4,
-              child: ListView.separated(
-                  itemBuilder: (context,index){
-                    return _getItem(list[index]);
-                  },
-                  separatorBuilder: (context,index){
-                    return Container(height: 1,color: Colors.green,);
-                  },
-                  itemCount: _itemCount()
+              child: FlutterTableView(
+                sectionCount: sectionCount,
+                rowCountAtSection: _itemCount,
+                sectionHeaderBuilder: _sectionHeaderBuilder,
+                cellBuilder: _cellBuilder,
+                sectionHeaderHeight: _sectionHeaderHeight,
+                cellHeight: _cellHeight,
               ),
-//              GridView.count(
-//                crossAxisCount: 2,
-//                crossAxisSpacing: 10.0,
-//                mainAxisSpacing: 20.0,
-//                padding: EdgeInsets.all(5.0),
-//                childAspectRatio: 2.0,
-//                children: _getWidgetList(),
-//              ),
           ),
 
         ],
