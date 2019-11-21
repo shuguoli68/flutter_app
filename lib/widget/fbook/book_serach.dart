@@ -1,7 +1,12 @@
+import 'package:dio/dio.dart' as prefix0;
 import 'package:flutter/material.dart';
+import 'package:flutter_app/bean/zhuishu/book_search_entity.dart';
 import 'package:flutter_app/global/my_public.dart';
 import 'package:flutter_app/global/common.dart';
+import 'package:flutter_app/util/HttpUtils.dart';
 import 'package:search_widget/search_widget.dart';
+
+import '../../entity_factory.dart';
 
 class BookSearch extends StatefulWidget{
   @override
@@ -10,12 +15,32 @@ class BookSearch extends StatefulWidget{
 
 class _BookSearch extends State<BookSearch> {
 
-  List<LeaderBoard> list = <LeaderBoard>[
-    LeaderBoard("Flutter", 54.0),
-    LeaderBoard("React", 22.5),
-    LeaderBoard("Ionic", 24.7),
-    LeaderBoard("Xamarin", 22.1),
+  BookSearchEntity words;
+  List<String> list = <String>[
+    '元尊',
+    '最强狂兵',
+    '剑来',
+    '超级女婿',
   ];
+
+  _getWords(String keyword) async {
+    if(keyword==null || keyword.isEmpty) return;
+    var req = {
+      'query':keyword
+    };
+    var response = await prefix0.Dio().get('http://api.zhuishushenqi.com/book/auto-complete',queryParameters: req);
+//    var result = await HttpUtils.request(
+//        'http://api.zhuishushenqi.com/book/auto-complete',
+////        http://api.zhuishushenqi.com/book/auto-complete?query=%E6%96%97
+//        method: HttpUtils.GET,
+//        data: req
+//    );
+    setState(() {
+      words = EntityFactory.generateOBJ(response.data);
+      print('自动匹配：${words.keywords}');
+      list = words.keywords;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,17 +57,19 @@ class _BookSearch extends State<BookSearch> {
               SizedBox(
                 height: 16.0,
               ),
-              SearchWidget<LeaderBoard>(
+              SearchWidget<String>(
                 dataList: list,
                 hideSearchBoxWhenItemSelected: false,
                 listContainerHeight: MediaQuery.of(context).size.height / 4,
-                queryBuilder: (String query, List<LeaderBoard> list) {
-                  return list.where((LeaderBoard item) => item.username.toLowerCase().contains(query.toLowerCase())).toList();
+                queryBuilder: (String query, List<String> list) {
+                  print('input:$query');
+                  _getWords(query);
+                  return list.where((String item) => item.toLowerCase().contains(query.toLowerCase())).toList();
                 },
-                popupListItemBuilder: (LeaderBoard item) {
+                popupListItemBuilder: (String item) {
                   return PopupListItemWidget(item);
                 },
-                selectedItemBuilder: (LeaderBoard selectedItem, VoidCallback deleteSelectedItem) {
+                selectedItemBuilder: (String selectedItem, VoidCallback deleteSelectedItem) {
                   return SelectedItemWidget(selectedItem, deleteSelectedItem);
                 },
                 // widget customization
@@ -59,15 +86,9 @@ class _BookSearch extends State<BookSearch> {
   }
 }
 
-class LeaderBoard {
-  final String username;
-  final double score;
-
-  LeaderBoard(this.username, this.score);
-}
-
+//搜索结果
 class SelectedItemWidget extends StatelessWidget {
-  final LeaderBoard selectedItem;
+  final String selectedItem;
   final VoidCallback deleteSelectedItem;
 
   SelectedItemWidget(this.selectedItem, this.deleteSelectedItem);
@@ -90,7 +111,7 @@ class SelectedItemWidget extends StatelessWidget {
                 bottom: 8,
               ),
               child: Text(
-                selectedItem.username,
+                selectedItem,
                 style: TextStyle(fontSize: 14),
               ),
             ),
@@ -106,6 +127,7 @@ class SelectedItemWidget extends StatelessWidget {
   }
 }
 
+//搜索框
 class MyTextField extends StatelessWidget {
   final TextEditingController controller;
   final FocusNode focusNode;
@@ -131,7 +153,7 @@ class MyTextField extends StatelessWidget {
           ),
           suffixIcon: Icon(Icons.search),
           border: InputBorder.none,
-          hintText: "Search here...",
+          hintText: "输入关键字...",
           contentPadding: EdgeInsets.only(
             left: 16,
             right: 20,
@@ -144,6 +166,7 @@ class MyTextField extends StatelessWidget {
   }
 }
 
+////悬浮窗-没有自动补充匹配时
 class NoItemsFound extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -170,8 +193,9 @@ class NoItemsFound extends StatelessWidget {
   }
 }
 
+//悬浮窗-自动补充
 class PopupListItemWidget extends StatelessWidget {
-  final LeaderBoard item;
+  final String item;
 
   PopupListItemWidget(this.item);
 
@@ -180,7 +204,7 @@ class PopupListItemWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12.0),
       child: Text(
-        item.username,
+        item,
         style: TextStyle(fontSize: 16.0),
       ),
     );
