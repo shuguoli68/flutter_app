@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/widget/my_fbook.dart';
+import 'package:flutter_app/widget/form/my_fbook.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provide/provide.dart';
 import 'theme/theme_provide.dart';
 import 'theme/theme_colors.dart';
 import 'package:english_words/english_words.dart';
-import 'package:flutter_app/widget/first_demo.dart';
-import 'package:flutter_app/widget/form_widget.dart';
-import 'widget/my_dialog.dart';
-import 'widget/my_anim.dart';
-import 'widget/my_save.dart';
-import 'widget/my_dio.dart';
-import 'widget/home_drawer.dart';
+import 'package:flutter_app/widget/form/first_demo.dart';
+import 'package:flutter_app/widget/form/form_widget.dart';
+import 'package:flutter_app/widget/form/my_dialog.dart';
+import 'package:flutter_app/widget/form/my_anim.dart';
+import 'package:flutter_app/widget/form/my_save.dart';
+import 'package:flutter_app/widget/form/my_dio.dart';
+import 'package:flutter_app/widget/form/home_drawer.dart';
 
 void main() async{
 

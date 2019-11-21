@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'child/child_text.dart';
-import 'child/child_image.dart';
-import 'child/child_textfiled.dart';
-import 'child/child_button.dart';
-import 'child/child_layout.dart';
-import 'child/child_listview.dart';
-import 'child/child_listview_builder.dart';
-import 'child/child_listview_separated.dart';
-import 'child/child_apply.dart';
+import 'package:flutter_app/widget/child/child_text.dart';
+import 'package:flutter_app/widget/child/child_image.dart';
+import 'package:flutter_app/widget/child/child_textfiled.dart';
+import 'package:flutter_app/widget/child/child_button.dart';
+import 'package:flutter_app/widget/child/child_layout.dart';
+import 'package:flutter_app/widget/child/child_listview.dart';
+import 'package:flutter_app/widget/child/child_listview_builder.dart';
+import 'package:flutter_app/widget/child/child_listview_separated.dart';
+import 'package:flutter_app/widget/child/child_apply.dart';
 
 class FormWidget extends StatefulWidget{
   @override

@@ -1,10 +1,13 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app/widget/fbook/book_serach.dart';
 
-import 'main/book_shelf.dart';
-import 'main/book_sort.dart';
-import 'main/book_rank.dart';
-import 'main/main_mine.dart';
+import 'package:flutter_app/widget/main/book_shelf.dart';
+import 'package:flutter_app/widget/main/book_sort.dart';
+import 'package:flutter_app/widget/main/book_rank.dart';
+import 'package:flutter_app/widget/main/main_mine.dart';
+import 'package:flutter_app/global/my_public.dart';
+import 'package:flutter_app/global/common.dart';
 
 class FBook extends StatefulWidget{
   @override
@@ -24,6 +27,12 @@ class _FBook extends State<FBook> {
     return Scaffold(
       appBar: new AppBar(
         title: new Text('FBook'),
+        actions: <Widget>[
+          new IconButton(icon: new Icon(Icons.search,color: Colors.white,), onPressed: () {
+            goTo(context, BookSearch());
+          }),
+          new IconButton(icon: new Icon(Icons.list,color: Colors.white,), ),
+        ],
       ),
       body: IndexedStack(
         index: _tabIndex,
