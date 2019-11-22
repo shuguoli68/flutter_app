@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart' as prefix0;
 import 'package:flutter/material.dart';
+import 'package:flutter_app/bean/zhuishu/book_query_entity.dart';
 import 'package:flutter_app/bean/zhuishu/book_search_entity.dart';
 import 'package:flutter_app/global/my_public.dart';
 import 'package:flutter_app/global/common.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_app/util/HttpUtils.dart';
 import 'package:search_widget/search_widget.dart';
 
 import '../../entity_factory.dart';
+import 'book_detail.dart';
 
 class BookSearch extends StatefulWidget{
   @override
@@ -16,31 +18,16 @@ class BookSearch extends StatefulWidget{
 class _BookSearch extends State<BookSearch> {
 
   BookSearchEntity words;
-  List<String> list = <String>[
+  BookQueryEntity data;
+  List<BookQueryBook> books;
+  List<String> hintList = <String>[
     '元尊',
     '最强狂兵',
     '剑来',
     '超级女婿',
   ];
-
-  _getWords(String keyword) async {
-    if(keyword==null || keyword.isEmpty) return;
-    var req = {
-      'query':keyword
-    };
-    var response = await prefix0.Dio().get('http://api.zhuishushenqi.com/book/auto-complete',queryParameters: req);
-//    var result = await HttpUtils.request(
-//        'http://api.zhuishushenqi.com/book/auto-complete',
-////        http://api.zhuishushenqi.com/book/auto-complete?query=%E6%96%97
-//        method: HttpUtils.GET,
-//        data: req
-//    );
-    setState(() {
-      words = EntityFactory.generateOBJ(response.data);
-      print('自动匹配：${words.keywords}');
-      list = words.keywords;
-    });
-  }
+  String input = '';
+  bool hintOrResult = false;
 
   @override
   Widget build(BuildContext context) {
@@ -50,39 +37,138 @@ class _BookSearch extends State<BookSearch> {
         title: Text('搜索'),
       ),
       body: Container(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(vertical: 16.0),
-          child: Column(
-            children: <Widget>[
-              SizedBox(
-                height: 16.0,
-              ),
-              SearchWidget<String>(
-                dataList: list,
-                hideSearchBoxWhenItemSelected: false,
-                listContainerHeight: MediaQuery.of(context).size.height / 4,
-                queryBuilder: (String query, List<String> list) {
-                  print('input:$query');
-                  _getWords(query);
-                  return list.where((String item) => item.toLowerCase().contains(query.toLowerCase())).toList();
-                },
-                popupListItemBuilder: (String item) {
-                  return PopupListItemWidget(item);
-                },
-                selectedItemBuilder: (String selectedItem, VoidCallback deleteSelectedItem) {
-                  return SelectedItemWidget(selectedItem, deleteSelectedItem);
-                },
-                // widget customization
-                noItemsFoundWidget: NoItemsFound(),
-                textFieldBuilder: (TextEditingController controller, FocusNode focusNode) {
-                  return MyTextField(controller, focusNode);
-                },
-              ),
-            ],
-          ),
+        padding: EdgeInsets.symmetric(vertical: 16.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(3.0)),
+          border: Border.all(color: Colors.black12, width: 1),
+        ),
+        child: Column(
+          children: <Widget>[
+            Flex(
+              direction: Axis.horizontal,
+              children: <Widget>[
+                Expanded(
+                  flex: 1,
+                  child: TextField(
+                    onChanged: (input){
+                      this.input = input;
+                      _getWords(input);
+                    },
+                    decoration: InputDecoration(
+                      hintText: '输入关键字',
+                    ),
+                  ),
+                ),
+                IconButton(icon: Icon(Icons.search,color: Colors.blue,), onPressed: (){
+                  _getQuery(input);
+                }),
+              ],
+            ),
+            _bodyList(),
+          ],
         ),
       ),
     );
+  }
+
+  _bodyList() {
+    if(hintOrResult){//显示搜索结果
+      return ListView.separated(
+        separatorBuilder: (context,index){
+          return Container(height: 1,color: Colors.green,);
+        },
+        itemCount: books.length,
+        itemBuilder: (context,index){
+          return GestureDetector(
+            onTap: (){
+              goTo(context, BookDetail(sId: books[index].sId,));
+            },
+            child: Flex(
+              direction: Axis.horizontal,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.all(5.0),
+                  child: Image.network(HttpUtils.BASE_URL_IMG+books[index].cover,width: 50,height: 90,),
+                ),
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      Text('《'+books[index].title+'》-'+books[index].author,maxLines: 1,overflow: TextOverflow.ellipsis,style: TextStyle(fontWeight: FontWeight.bold),),
+                      Text(books[index].shortIntro,maxLines: 3,overflow: TextOverflow.ellipsis),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          );
+        },
+      );
+    }else{//显示自动补充提示
+      return ListView.separated(
+          separatorBuilder: (context,index){
+            return Container(height: 1,color: Colors.green,);
+            },
+          itemCount: hintList.length,
+          itemBuilder: (context,index){
+            return ListTile(
+              onTap: (){
+                _getQuery(hintList[index]);
+              },
+              title: Text('itemText$index',),
+              trailing: Icon(Icons.keyboard_arrow_right)
+            );
+          },
+      );
+    }
+  }
+
+  _getWords(String keyword) async {
+    if(keyword==null || keyword.isEmpty) return;
+    var req = {
+      'query':keyword
+    };
+    var response = await prefix0.Dio().get('http://api.zhuishushenqi.com/book/auto-complete',queryParameters: req);
+//    var result = await HttpUtils.request(
+//        '/book/auto-complete',
+//        method: HttpUtils.GET,
+//        data: {
+//          'query':keyword
+//        }
+//    );
+    setState(() {
+      hintOrResult = false;
+      words = EntityFactory.generateOBJ(response.data);
+      print('自动匹配：${words.keywords}');
+      hintList = words.keywords;
+    });
+  }
+
+  _getQuery(String keyword) async {
+    if(keyword==null || keyword.isEmpty) {
+      myToast(context, '请先输入关键字');
+      return;
+    }
+    var req = {
+      'query':keyword,
+      'start':1,
+      'limit':50
+    };
+    var response = await prefix0.Dio().get('http://api.zhuishushenqi.com/book/fuzzy-search',queryParameters: req);
+//    var result = await HttpUtils.request(
+//        '/book/fuzzy-search',
+//        method: HttpUtils.GET,
+//        data: {
+//          'query':keyword,
+//          'start':1,
+//          'limit':50
+//        }
+//    );
+    setState(() {
+      hintOrResult = true;
+      data = EntityFactory.generateOBJ(response.data);
+      books = data.books;
+      print('结果：$books');
+    });
   }
 }
 
@@ -122,90 +208,6 @@ class SelectedItemWidget extends StatelessWidget {
             onPressed: deleteSelectedItem,
           ),
         ],
-      ),
-    );
-  }
-}
-
-//搜索框
-class MyTextField extends StatelessWidget {
-  final TextEditingController controller;
-  final FocusNode focusNode;
-
-  MyTextField(this.controller, this.focusNode);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      child: TextField(
-        controller: controller,
-        focusNode: focusNode,
-        style: new TextStyle(fontSize: 16, color: Colors.grey[600]),
-        decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0x4437474F)),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Theme
-                .of(context)
-                .primaryColor),
-          ),
-          suffixIcon: Icon(Icons.search),
-          border: InputBorder.none,
-          hintText: "输入关键字...",
-          contentPadding: EdgeInsets.only(
-            left: 16,
-            right: 20,
-            top: 14,
-            bottom: 14,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-////悬浮窗-没有自动补充匹配时
-class NoItemsFound extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Icon(
-            Icons.folder_open,
-            size: 24,
-            color: Colors.grey[900].withOpacity(0.7),
-          ),
-          SizedBox(width: 10.0),
-          Text(
-            "No Items Found",
-            style: TextStyle(
-              fontSize: 16.0,
-              color: Colors.grey[900].withOpacity(0.7),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-//悬浮窗-自动补充
-class PopupListItemWidget extends StatelessWidget {
-  final String item;
-
-  PopupListItemWidget(this.item);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(12.0),
-      child: Text(
-        item,
-        style: TextStyle(fontSize: 16.0),
       ),
     );
   }
