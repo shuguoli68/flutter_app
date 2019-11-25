@@ -19,7 +19,7 @@ class _BookSearch extends State<BookSearch> {
 
   BookSearchEntity words;
   BookQueryEntity data;
-  List<BookQueryBook> books;
+  List<BookQueryBook> books = new List<BookQueryBook>();
   List<String> hintList = <String>[
     '元尊',
     '最强狂兵',
@@ -42,30 +42,30 @@ class _BookSearch extends State<BookSearch> {
           borderRadius: BorderRadius.all(Radius.circular(3.0)),
           border: Border.all(color: Colors.black12, width: 1),
         ),
-        child: Column(
-          children: <Widget>[
-            Flex(
-              direction: Axis.horizontal,
-              children: <Widget>[
-                Expanded(
-                  flex: 1,
-                  child: TextField(
-                    onChanged: (input){
-                      this.input = input;
-                      _getWords(input);
-                    },
-                    decoration: InputDecoration(
-                      hintText: '输入关键字',
-                    ),
+        child: Flex(direction: Axis.vertical, children: <Widget>[
+          Flex(
+            direction: Axis.horizontal,
+            children: <Widget>[
+              Expanded(
+                flex: 1,
+                child: TextField(
+                  onChanged: (input){
+                    this.input = input;
+                    _getWords(input);
+                  },
+                  decoration: InputDecoration(
+                    hintText: '输入关键字',
                   ),
                 ),
-                IconButton(icon: Icon(Icons.search,color: Colors.blue,), onPressed: (){
-                  _getQuery(input);
-                }),
-              ],
-            ),
-            _bodyList(),
-          ],
+              ),
+              IconButton(icon: Icon(Icons.search,color: Colors.blue,), onPressed: (){
+                _getQuery(input);
+              }),
+            ],
+          ),
+
+          Expanded(child: _bodyList())
+        ],
         ),
       ),
     );
@@ -114,7 +114,7 @@ class _BookSearch extends State<BookSearch> {
               onTap: (){
                 _getQuery(hintList[index]);
               },
-              title: Text('itemText$index',),
+              title: Text(hintList[index],),
               trailing: Icon(Icons.keyboard_arrow_right)
             );
           },
@@ -154,6 +154,7 @@ class _BookSearch extends State<BookSearch> {
       'limit':50
     };
     var response = await prefix0.Dio().get('http://api.zhuishushenqi.com/book/fuzzy-search',queryParameters: req);
+    print('结果response：$response');
 //    var result = await HttpUtils.request(
 //        '/book/fuzzy-search',
 //        method: HttpUtils.GET,
