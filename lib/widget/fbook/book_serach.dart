@@ -168,7 +168,6 @@ class _BookSearch extends State<BookSearch> {
       hintOrResult = true;
       data = EntityFactory.generateOBJ(response.data);
       books = data.books;
-      print('结果：$books');
     });
   }
 }
