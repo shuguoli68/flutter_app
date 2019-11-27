@@ -5,7 +5,6 @@ import 'package:flutter_app/bean/zhuishu/book_search_entity.dart';
 import 'package:flutter_app/global/my_public.dart';
 import 'package:flutter_app/global/common.dart';
 import 'package:flutter_app/util/HttpUtils.dart';
-import 'package:search_widget/search_widget.dart';
 
 import '../../entity_factory.dart';
 import 'book_detail.dart';

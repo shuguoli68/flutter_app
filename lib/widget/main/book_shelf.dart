@@ -12,7 +12,7 @@ class _BookShelf extends State<BookShelf>{
   Widget build(BuildContext context) {
     print('BookShelf');
     return Scaffold(
-      body: Text('BookShelf'),
+      body: Text('BookShelf\n很多接口不能用了，然后追书神器好多不免费了，需要VIP'),
     );
   }
 
