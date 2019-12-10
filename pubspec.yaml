@@ -35,6 +35,7 @@ dependencies:
   flutter_tableview: ^1.0.1
   loadmore: ^1.0.4
   flustars: ^0.2.6+1 #https://github.com/Sky24n/common_utils
+  fish_redux: ^0.3.1 # https://github.com/alibaba/fish-redux
 
 dev_dependencies:
   flutter_test:
