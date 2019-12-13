@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:toast/toast.dart';
+import 'package:flutter_app/global/common.dart';
 import 'package:provide/provide.dart';
 import 'package:flutter_app/theme/theme_provide.dart';
 import 'package:flutter_app/theme/theme_colors.dart';
@@ -19,7 +19,7 @@ class HomeDrawer {
         backgroundImage: AssetImage('images/user_ba.png'),
       ),
       onDetailsPressed: (){
-        Toast.show('点击了', context,gravity: Toast.TOP);
+        myToast('点击了');
         print('点击');
       },
     );
@@ -82,7 +82,7 @@ class HomeDrawer {
             title: Text('This is item A'),
             onTap: (){
               print('点击A');
-              Toast.show('点击A', context,gravity: Toast.TOP);
+              myToast('点击A');
             },
           ),
         ),
@@ -98,7 +98,7 @@ class HomeDrawer {
             title: Text('This is item B'),
             onTap: (){
               print('点击B');
-              Toast.show('点击B', context,gravity: Toast.TOP);
+              myToast('点击B');
             },
           ),
         ),

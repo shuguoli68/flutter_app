@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/global/my_public.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-myToast(BuildContext context,String s){
-  Toast.show(s, context,gravity: Toast.CENTER);
+myToast(String s){
+  Fluttertoast.showToast(msg: s);
 }
 
 mySp() async {

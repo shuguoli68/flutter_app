@@ -60,7 +60,7 @@ class _BookDetail extends State<BookDetail> {
       textColor: Colors.white,
       child: Text(str),
       onPressed: (){
-        Toast.show(str, context,gravity: Toast.TOP);
+        myToast(str);
         switch(index){
           case 0://加入书架
             break;

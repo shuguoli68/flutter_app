@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_app/global/common.dart';
 import 'package:flutter_app/util/HttpUtils.dart';
 import 'package:flutter_app/entity_factory.dart';
 import 'package:flutter_app/bean/wy_news_entity.dart';
-import 'package:toast/toast.dart';
 import 'package:flutter_app/widget/web_widget.dart';
 
 //https://www.apiopen.top/api.html
@@ -66,10 +66,10 @@ class _WYNews extends State<WYNews>{
                       title: "网易新闻",
                     );
                   }));
-                  Toast.show('点击了$index', context,gravity: Toast.TOP);
+                  myToast('点击了$index');
                 },
                 onLongPress: (){
-                  Toast.show('长按了$index', context,gravity: Toast.TOP);
+                  myToast('长按了$index');
                 },
                 child: Container(
                   decoration: BoxDecoration(

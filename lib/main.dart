@@ -3,6 +3,7 @@ import 'package:flutter_app/widget/form/my_fbook.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provide/provide.dart';
+import 'redux/page/page_login.dart';
 import 'theme/theme_provide.dart';
 import 'theme/theme_colors.dart';
 import 'package:english_words/english_words.dart';
@@ -124,6 +125,13 @@ class MainAppState extends State<MainApp> {
                 child: RaisedButton(onPressed:(){
                   _goTo(FBook());
                 },child: Text('FBook'),)
+            ),
+
+            Container(
+                width: double.maxFinite,
+                child: RaisedButton(onPressed:(){
+
+                },child: Text('fish_redux'),)
             ),
           ],
         ),

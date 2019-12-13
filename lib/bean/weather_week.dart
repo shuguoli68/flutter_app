@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/global/common.dart';
 import 'package:flutter_app/items/weather_entity.dart';
 
 import 'package:flutter_app/util/HttpUtils.dart';
 import 'package:flutter_app/entity_factory.dart';
-import 'package:toast/toast.dart';
 import 'package:flutter_app/widget/web_widget.dart';
 
 class WeatherWeek extends StatefulWidget{
@@ -84,7 +84,7 @@ class _WeatherWeek extends State<WeatherWeek> {
                       }));
                     },
                     onLongPress: (){
-                      Toast.show('长按了$index', context,gravity: Toast.TOP);
+                      myToast('长按了$index');
                     },
                     child: Container(
                       decoration: BoxDecoration(

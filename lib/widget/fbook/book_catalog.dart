@@ -53,7 +53,7 @@ class _BookCatalog extends State<BookCatalog>{
                 ),),
               child: ListTile(
                 onTap: (){
-                  Toast.show('点击了${data.mixToc.chapters[index].title}', context,gravity: Toast.TOP);
+                  myToast('点击了${data.mixToc.chapters[index].title}');
                 },
                 title: Text('${data.mixToc.chapters[index].title}'),
                 trailing: Icon(Icons.keyboard_arrow_right),

@@ -144,7 +144,7 @@ class _BookSearch extends State<BookSearch> {
 
   _getQuery(String keyword) async {
     if(keyword==null || keyword.isEmpty) {
-      myToast(context, '请先输入关键字');
+      myToast( '请先输入关键字');
       return;
     }
     var req = {
