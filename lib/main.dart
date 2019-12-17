@@ -1,4 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
+import 'package:fish_redux/fish_redux.dart';
+import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_app/widget/form/my_fbook.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -130,7 +132,7 @@ class MainAppState extends State<MainApp> {
             Container(
                 width: double.maxFinite,
                 child: RaisedButton(onPressed:(){
-
+                  _goTo(routes.buildPage('login',null));
                 },child: Text('fish_redux'),)
             ),
           ],
@@ -143,5 +145,58 @@ class MainAppState extends State<MainApp> {
     Navigator.of(context).push(MaterialPageRoute(builder: (_){
       return key;
     }));
+  }
+
+  final AbstractRoutes routes = PageRoutes(
+    pages: <String, Page<Object, dynamic>>{
+      /// 注册登陆主页面
+      "login": LoginPage(),
+
+      /// 注册用户注册页面
+//      "register":RegisterPage(),
+
+      /// 注册首页
+//      "home": HomePage(),
+    },
+    visitor: (String path, Page<Object, dynamic> page) {
+      /// AOP
+      /// 页面可以有一些私有的 AOP 的增强， 但往往会有一些 AOP 是整个应用下，所有页面都会有的。
+      /// 这些公共的通用 AOP ，通过遍历路由页面的形式统一加入。
+      page.enhancer.append(
+        /// View AOP
+        viewMiddleware: <ViewMiddleware<dynamic>>[
+          safetyView<dynamic>(),
+        ],
+
+        /// Adapter AOP
+        adapterMiddleware: <AdapterMiddleware<dynamic>>[safetyAdapter<dynamic>()],
+
+        /// Effect AOP
+//        effectMiddleware: [
+//          _pageAnalyticsMiddleware<dynamic>(),
+//        ],
+
+        /// Store AOP
+        middleware: <Middleware<dynamic>>[
+          //这块主要用到middleware的打印功能，监听Action在页面间的调整过程
+          logMiddleware<dynamic>(tag: page.runtimeType.toString()), //这块主要用到middleware的打印功能，监听Action在页面间的调整过程
+        ],
+      );
+    },
+  );
+
+  /// 简单的 Effect AOP
+  /// 只针对页面的生命周期进行打印
+  EffectMiddleware<T> _pageAnalyticsMiddleware<T>({String tag = 'redux'}) {
+    return (AbstractLogic<dynamic> logic, Store<T> store) {
+      return (Effect<dynamic> effect) {
+        return (Action action, Context<dynamic> ctx) async {
+          if (logic is Page<dynamic, dynamic> && action.type is Lifecycle) {
+            print('${logic.runtimeType} ${action.type.toString()} ');
+          }
+          return effect?.call(action, ctx);
+        };
+      };
+    };
   }
 }
